@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {{products.description|truncatewords:155}}
+{% endblock %}
+{% block title %}
+{{ products.name }}
+{% endblock %}
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="mx_auto">
+        <p><a href="{% url 'e_app:allprodcat' %}">Home</a> <i class="fa-solid fa-chevron-right"></i> <a href="{{products.category.get_url}}">{{products.category}}</a> <i class="fa-solid fa-chevron-right"></i> {{products.name}} </p>
+    </div>
+</div>
+<div class="container">
+<br>
+<div class="row" >
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div style="min-width:18rem;">
+            <img src="{{products.image.url}}" alt="{{products.name}}" width="350px" height="400px">
+        </div>
+    </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+            <h1 class="my_prod_title">{{products.name}}</h1>
+                <div style="margin-bottom:10px;">
+                <img src="{% static 'img/star 1.jpg' %}" alt="star rating" width="20px" height="30px" >
+                <img src="{% static 'img/star 1.jpg' %}" alt="star rating" width="20px" height="30px" >
+                <img src="{% static 'img/star 1.jpg' %}" alt="star rating" width="20px" height="30px" >
+                <img src="{% static 'img/star 1.jpg' %}" alt="star rating" width="20px" height="30px" >
+                <img src="{% static 'img/star 1.jpg' %}" alt="star rating" width="20px" height="30px" >
+                </div>
+            <h3>₹ {{products.price}}</h3>
+            <p class="my_title"><b>Description</b></p>
+            <p class="text-justify my_prod_text">{{products.description}}</p>
+            {% if products.stock <= 0 %}
+            <p class="text-justify my_prod_stock"><b>Out of Stock</b></p>
+            {% else %}
+            <a class="btn btn-dark" href="{% url 'cart_app:add_cart' products.id %}">Add to Cart <i class="fa fa-cart-shopping"></i></a>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
